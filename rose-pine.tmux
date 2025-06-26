@@ -302,6 +302,15 @@ main() {
     local show_directory
     readonly show_directory="#[fg=$thm_subtle]#[fg=$thm_rose]#{b:pane_current_path} "
 
+    # ── Git status (gitmux) ──────────────────────────────────────
+    # Toggle with @rose_pine_git_status (default: on)
+    local git_status_on
+    git_status_on="$(get_tmux_option "@rose_pine_git_status" "on")"
+
+    # gitmux prints nothing when not in a repo, so it's safe
+    local show_git_status
+    show_git_status="#(gitmux -cfg $HOME/.gitmux.conf \"#{pane_current_path}\")#[fg=$thm_subtle]$field_separator"
+
     local show_directory_in_window_status
     # BUG: It doesn't let the user pass through a custom window name
     show_directory_in_window_status="#I$left_separator#[fg=$thm_gold,bg=""]#{b:pane_current_path}"
@@ -383,6 +392,10 @@ main() {
 
     if [[ "$host" == "on" ]]; then
         right_column=$right_column$show_host
+    fi
+
+    if [[ "$git_status_on" == "on" ]]; then
+        right_column=$right_column$show_git_status
     fi
 
     if [[ "$date_time" != "" ]]; then
