@@ -149,6 +149,11 @@ main() {
     local date_time
     date_time="$(get_tmux_option "@rose_pine_date_time" "")"
     readonly date_time
+    
+    # not working I had to hardcode this to get it to work
+    # local date_time_utc
+    # date_time_utc="$(get_tmux_option "@rose_pine_date_time_utc" "date -u +%%H:%%M")"
+    # readonly date_time_utc
 
     # Shows truncated current working directory
     local directory
@@ -297,7 +302,10 @@ main() {
     readonly show_host="$spacer#[fg=$thm_text]#H#[fg=$thm_subtle]$right_separator#[fg=$thm_subtle]$hostname_icon"
 
     local show_date_time
-    readonly show_date_time=" #[fg=$thm_foam]$date_time#[fg=$thm_subtle]$right_separator#[fg=$thm_subtle]"
+    readonly show_date_time="#[fg=$thm_foam]$date_time#[fg=$thm_subtle]$right_separator#[fg=$thm_subtle]"
+
+    local show_date_time_utc
+    show_date_time_utc="#[fg=$thm_pine]#(date -u +%%H:%%M)Z#[fg=$thm_subtle]$right_separator#[fg=$thm_subtle]"
 
     local show_directory
     readonly show_directory="#[fg=$thm_subtle]#[fg=$thm_rose]#{b:pane_current_path} "
@@ -396,6 +404,10 @@ main() {
 
     if [[ "$git_status_on" == "on" ]]; then
         right_column=$right_column$show_git_status
+    fi
+
+    if [[ "$date_time_utc" != "on" ]]; then
+        right_column=$right_column$show_date_time_utc
     fi
 
     if [[ "$date_time" != "" ]]; then
