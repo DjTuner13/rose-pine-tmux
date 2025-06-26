@@ -297,10 +297,10 @@ main() {
     readonly show_host="$spacer#[fg=$thm_text]#H#[fg=$thm_subtle]$right_separator#[fg=$thm_subtle]$hostname_icon"
 
     local show_date_time
-    readonly show_date_time=" #[fg=$thm_foam]$date_time#[fg=$thm_subtle]$right_separator#[fg=$thm_subtle]$date_time_icon "
+    readonly show_date_time=" #[fg=$thm_foam]$date_time#[fg=$thm_subtle]$right_separator#[fg=$thm_subtle]"
 
     local show_directory
-    readonly show_directory="$spacer#[fg=$thm_subtle]$current_folder_icon #[fg=$thm_rose]#{b:pane_current_path} "
+    readonly show_directory="#[fg=$thm_subtle]#[fg=$thm_rose]#{b:pane_current_path} "
 
     local show_directory_in_window_status
     # BUG: It doesn't let the user pass through a custom window name
@@ -467,3 +467,4 @@ main() {
 }
 
 main "$@"
+
